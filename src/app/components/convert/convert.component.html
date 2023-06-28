@@ -1,0 +1,78 @@
+<div class="converter">
+  <form 
+    class="converter_inputs" (change)="formSubmit($event)">
+    <select
+      id="first"
+      [formControl]="firstSymbol"
+      [value]="firstSymbol"
+      class="select"
+    >
+      <option
+        *ngFor="let symbol of symbols"
+        [value]="symbol.code"
+      >
+        {{ symbol.code }} {{ symbol.description }}
+    </option>
+    </select>
+
+    <input
+      id="first"
+      [formControl]="first"
+      placeholder="0"
+      class="input"
+    />
+
+    <input
+      id="second"
+      [formControl]="second"
+      placeholder="0"
+      class="input"
+    />
+
+    <select
+      id="second"
+      [formControl]="secondSymbol"
+      [value]="secondSymbol.value"
+      class="select"
+    >
+      <option
+        *ngFor="let symbol of symbols"
+        [value]="symbol.code"
+      >
+        {{ symbol.code }} {{ symbol.description }}
+      </option>
+    </select>
+  </form>
+
+  <span *ngIf="convertionResult !== 0; else beforeStart" class="converter_result"> result : {{ convertionResult }} </span>
+  <ng-template #beforeStart>
+    <span class="converter_result">Ready to start</span>
+  </ng-template>
+
+  <div 
+    *ngIf="historyRecords.length > 0"
+    class="is-flex is-align-items-center"
+  >
+    <span class="mr-3">Hystory:</span>
+    <div
+      class="button is-warning is-small"
+      (click)="clearSesionHistory()"
+    >
+      Clear Hystory
+    </div> 
+  </div>
+  <div class="converter_history">
+    <div 
+      class="converter_history_item" 
+      *ngFor="let record of historyRecords.reverse()"
+    >
+      *
+      {{record.amount}}
+      {{record.from}}
+      =>
+      {{record.to}}
+      result: {{record.result}}
+    </div>
+  </div>
+
+</div>
